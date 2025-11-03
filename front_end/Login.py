@@ -1,9 +1,9 @@
 from nicegui import ui
-import Login
-import mainPage
-import SignUp
-import addTour
-import forgotPassword
+import front_end.Login as Login
+import front_end.mainPage as mainPage
+import front_end.SignUp as SignUp
+import front_end.addTour as addTour
+import front_end.forgotPassword as forgotPassword
 def click_logIn():
     ui.navigate.to('/mainPage')
 def click_signUp():
@@ -22,5 +22,5 @@ def users_page():
         ui.button('Sign up', on_click=click_signUp)
         ui.button('Log in',on_click=click_logIn)
         ui.button("forgot Password", on_click=click_password)
-
+    
 ui.run()
