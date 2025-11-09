@@ -7,6 +7,7 @@ from fastapi import FastAPI
 import uvicorn
 
 from api.user import router as user_router
+from api.tour import router as tour_router
 # from api.task import router as task_router
 
 
@@ -16,3 +17,4 @@ else:
     init_db([User,Tour,LikeArr,FavoritesList])
     app = FastAPI()
     app.include_router(user_router)
+    app.include_router(tour_router)
