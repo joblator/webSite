@@ -1,16 +1,15 @@
 from fastapi import APIRouter,Response,status,UploadFile
-from dal.tour import Tour
+from dal.tour import Tour , TourFilter
+
 
 router = APIRouter(prefix="/tour")
 @router.get("/all")
 def api_get_all():
     return Tour.find().run()
 # filter users
-"""
 @router.post("/filter")
-def api_get_filter(filter:UserFilter):
-    return User.find(User.name == filter.name , User.is_admin == filter.is_admin).run()
-"""
+def api_get_filter(filter:TourFilter):
+    return Tour.find(Tour.description == filter.description , Tour.like == filter.like).run()
 """
 # login
 @router.post("/login")

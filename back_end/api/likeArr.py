@@ -1,30 +1,30 @@
-from dal.favoriteArr import FavoritesList
+from dal.likeArr import LikeArr
 from fastapi import APIRouter,Response,status,UploadFile
 
-router = APIRouter(prefix="/favorites")
+router = APIRouter(prefix="/likes")
 # add user
 @router.post("")
-def api_add(favList: FavoritesList):
-    if FavoritesList.get(favList.id).run() != None:
+def api_add(like_List: LikeArr):
+    if LikeArr.get(like_List.id).run() != None:
         return Response(status_code=status.HTTP_400_BAD_REQUEST)
     else:
-        favList.save()
-        return favList
+        like_List.save()
+        return like_List
 # update user
 @router.put("")
-def api_udpate(favList: FavoritesList):
-    the_list:FavoritesList = FavoritesList.get(favList.id).run() 
+def api_udpate(like_List: LikeArr):
+    the_list:LikeArr = LikeArr.get(like_List.id).run() 
     if the_list == None:
         return Response(status_code=status.HTTP_404_NOT_FOUND)
     else:
-        favList.save()
-        return favList
+        like_List.save()
+        return like_List
 
 
 # # delete single user
 @router.delete("/{list_id}")
 def api_delete(list_id: str):
-    the_list:FavoritesList = FavoritesList.get(list_id).run() 
+    the_list:LikeArr = LikeArr.get(list_id).run() 
     if the_list == None:
         return Response(status_code=status.HTTP_404_NOT_FOUND)
     else:
@@ -33,9 +33,9 @@ def api_delete(list_id: str):
 
 
 # # find single user
-@router.get("/{tour_id}")
+@router.get("/{list_id}")
 def api_get(list_id: str):
-    the_list:FavoritesList = FavoritesList.get(list_id).run() 
+    the_list:LikeArr = LikeArr.get(list_id).run() 
     if the_list == None:
         return Response(status_code=status.HTTP_404_NOT_FOUND)
     else:
