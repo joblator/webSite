@@ -10,6 +10,10 @@ def api_add(favList: FavoritesList):
     else:
         favList.save()
         return favList
+    
+@router.get("/all")
+def api_get_all():
+    return FavoritesList.find().run()
 # update user
 @router.put("")
 def api_udpate(favList: FavoritesList):

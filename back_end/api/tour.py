@@ -61,26 +61,24 @@ def api_get(tour_id: str):
     else:
         return the_tour
 
-    
-# # add file for tour
-@router.put("/file/{tour_id}")
-def api_add_file(tour_id: str,file: UploadFile):
-    the_tour:Tour = Tour.get(tour_id).run() 
-    if the_tour == None:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)
-    print("uploading file. size=",file.size)
-    the_tour.add_file(file.file,file.content_type)
-
 # # get a file for tour
 @router.get("/file/{tour_id}")
 def api_get_file(tour_id: str):
     the_tour:Tour = Tour.get(tour_id).run() 
     if the_tour == None:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)
+        return Response("No user found",status_code=status.HTTP_404_NOT_FOUND)
 
     f_data,media_type = the_tour.get_file()
     print(media_type)
     if f_data == None:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)
+        return Response("No file found",status_code=status.HTTP_404_NOT_FOUND)
     else:
         return Response(content=f_data, media_type=media_type)
+
+@router.put("/file/{user_id}")
+def api_add_file(tour_id: str,file: UploadFile):
+    the_tour:Tour = Tour.get(tour_id).run() 
+    if the_tour == None:
+        return Response("User not found",status_code=status.HTTP_404_NOT_FOUND)
+    print("uploading file. size=",file.size)
+    the_tour.add_file(file.file,file.content_type)

@@ -8,7 +8,10 @@ import uvicorn
 
 from api.user import router as user_router
 from api.tour import router as tour_router
-# from api.task import router as task_router
+from api.likeArr import router as like_router
+from api.favoriteArr import router as fav_router
+
+
 
 
 if __name__ == "__main__":
@@ -18,3 +21,5 @@ else:
     app = FastAPI()
     app.include_router(user_router)
     app.include_router(tour_router)
+    app.include_router(fav_router)
+    app.include_router(like_router)

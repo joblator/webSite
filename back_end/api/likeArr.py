@@ -10,6 +10,10 @@ def api_add(like_List: LikeArr):
     else:
         like_List.save()
         return like_List
+
+@router.get("/all")
+def api_get_all():
+    return LikeArr.find().run()
 # update user
 @router.put("")
 def api_udpate(like_List: LikeArr):
