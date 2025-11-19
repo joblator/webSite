@@ -4,10 +4,6 @@ from dal.user import User,UserFilter,UserLogin
 
 router = APIRouter(prefix="/user")
 # filter users
-@router.post("/filter")
-def api_get_filter(filter:UserFilter):
-    return User.find(User.name == filter.name , User.is_admin == filter.is_admin).run()
-
 
 @router.get("/all")
 def api_get_all():
@@ -16,11 +12,11 @@ def api_get_all():
 # login
 @router.post("/login")
 def api_login(ul: UserLogin) :
-    the_user:User = User.get(ul.name).run() 
+    the_user:User = User.get(ul.email).run() 
     if the_user == None:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)
+        return Response("user not found",status_code=status.HTTP_404_NOT_FOUND)
     elif the_user.password != ul.password:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)        
+        return Response("incorrect password",status_code=status.HTTP_404_NOT_FOUND)        
     else:
         return the_user
 

@@ -5,7 +5,7 @@ from pydantic import BaseModel
 import gridfs
 from dal.db import get_db
 class UserLogin(BaseModel):
-    name: str
+    email: str
     password: str
 class UserFilter(BaseModel):
     name:str
