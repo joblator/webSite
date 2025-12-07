@@ -65,6 +65,8 @@ def test_login():
     assert response.json()['_id'] == login_user.email
     assert response.json()['password'] == login_user.password
     new_user.delete()
+
+    
 def test_update():
     new_user = generate_user(True)
     response = client.post("/user",data=new_user.model_dump_json())

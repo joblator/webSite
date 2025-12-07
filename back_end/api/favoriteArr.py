@@ -37,7 +37,7 @@ def api_delete(list_id: str):
 
 
 # # find single user
-@router.get("/{tour_id}")
+@router.get("/{list_id}")
 def api_get(list_id: str):
     the_list:FavoritesList = FavoritesList.get(list_id).run() 
     if the_list == None:

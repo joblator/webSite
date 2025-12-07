@@ -1,5 +1,5 @@
 from fastapi import APIRouter,Response,status,UploadFile
-from dal.tour import Tour , TourFilter
+from dal.tour import Tour,TourFilter
 
 
 router = APIRouter(prefix="/tour")
