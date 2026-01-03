@@ -6,7 +6,7 @@ from datetime import datetime
 from dal.db import get_db
 class TourFilter(BaseModel):
     description:str
-    like:bool
+    like:bool  #if the user liked the tour
 class Tour(Document): 
     description:str
     like:bool
