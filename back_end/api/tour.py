@@ -9,7 +9,7 @@ def api_get_all():
 # filter users
 @router.post("/filter")
 def api_get_filter(filter:TourFilter):
-    return Tour.find(Tour.description == filter.description , Tour.like == filter.like).run()
+    return Tour.find(Tour.description == filter.description , Tour.description == filter.description).run()
 """
 # login
 @router.post("/login")

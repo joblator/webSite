@@ -13,7 +13,6 @@ def click_logIn(email,password):
     if response.status_code == status.HTTP_200_OK:
         app.storage.user.update({"user_id":response.json()['_id']})
         app.storage.user.update({"is_admin":response.json()['is_admin']})
-        print("--- User Cookie Data ---")
         ui.navigate.to('/mainPage')
     elif response.status_code == status.HTTP_404_NOT_FOUND:
         ui.notify("invalid data")

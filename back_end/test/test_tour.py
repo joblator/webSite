@@ -9,7 +9,7 @@ client = TestClient(app)
 # generates a new random user
 def generate_Tour(like:bool,favorite:bool)->Tour:
     description = 'description_'+str(random.randint(1, 1000))
-    new_tour:Tour = Tour(description=description,like=like,favorite=favorite)
+    new_tour:Tour = Tour(description=description,like=like,favorite=favorite,location="south")
     return new_tour
 
 

@@ -6,11 +6,12 @@ from datetime import datetime
 from dal.db import get_db
 class TourFilter(BaseModel):
     description:str
-    like:bool  #if the user liked the tour
+    location:str
 class Tour(Document): 
     description:str
     like:bool
     favorite:bool
+    location:str
 
 
     def add_file(self,file_data,content_type):
