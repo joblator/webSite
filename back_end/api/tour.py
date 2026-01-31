@@ -75,7 +75,7 @@ def api_get_file(tour_id: str):
     else:
         return Response(content=f_data, media_type=media_type)
 
-@router.put("/file/{user_id}")
+@router.put("/file/{tour_id}")
 def api_add_file(tour_id: str,file: UploadFile):
     the_tour:Tour = Tour.get(tour_id).run() 
     if the_tour == None:

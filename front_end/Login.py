@@ -2,7 +2,7 @@ from nicegui import ui,app
 import Login as Login
 import mainPage as mainPage
 import SignUp as SignUp
-import addTour as addTour
+import editTour as editTour
 import forgotPassword as forgotPassword
 import re
 from requests import post

@@ -1,7 +1,5 @@
 from nicegui import ui,app
 from requests import get,post
-def click_tour():
-    ui.navigate.to('/addTour')
 def fetch_tours(description:str,location:str):
     if description == "":
         result = get('http://127.0.0.1:8090/tour/all')
@@ -15,10 +13,14 @@ def show_table_content(description:str = "",location:str = ""):
     data = fetch_tours(description,location)   
     with ui.row().classes('flex-wrap gap-4 justify-center'):
         for u in data:
+            id = u['_id']   
             with ui.card().classes('w-60 h-80 shadow-md'):
                 ui.image('http://127.0.0.1:8090/tour/file/'+u['_id']).classes('w-full h-32 object-cover')
                 ui.label(u['description']).classes('font-bold text-sm')
                 ui.label(f"ID: {u['_id']}").classes('text-xs text-gray-500')
+                ui.label(f"location:{u['location']}")
+                ui.button(f"edit tour",on_click=lambda currentId = id: ui.navigate.to('/editTour/'+currentId))#use current id so that the lambda copies the value and doesent use the last knows id val
+            
 def tour_list_container(description: str = "", like: bool = False):
     data = fetch_tours(description, like)
     
@@ -38,18 +40,6 @@ def tour_list_container(description: str = "", like: bool = False):
         ui.separator()
 
         show_table_content()
-
-
-        # 2. THE FIX: Use ui.row() with flex-wrap instead of ui.column()
-        # 'flex-wrap' allows cards to move to the next line
-        # 'gap-4' adds space between the cards
-        with ui.row().classes('flex-wrap gap-4 justify-center'):
-            for u in data:
-                # Give each card a fixed width so they align like a grid
-                with ui.card().classes('w-60 h-80 shadow-md'):
-                    ui.image('http://127.0.0.1:8090/tour/file/'+u['_id']).classes('w-full h-32 object-cover')
-                    ui.label(u['description']).classes('font-bold text-sm')
-                    ui.label(f"ID: {u['_id']}").classes('text-xs text-gray-500')
 @ui.page('/mainPage')   
 def mainPage_page():
     tour_list_container('',False)
