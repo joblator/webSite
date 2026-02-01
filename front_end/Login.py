@@ -15,7 +15,7 @@ def click_logIn(email,password):
         app.storage.user.update({"is_admin":response.json()['is_admin']})
         ui.navigate.to('/mainPage')
     elif response.status_code == status.HTTP_404_NOT_FOUND:
-        ui.notify("invalid data")
+        ui.notify("invalid data") 
 def click_signUp():
     ui.navigate.to('/signUp')
 def click_password():

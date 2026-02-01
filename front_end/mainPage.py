@@ -1,5 +1,17 @@
 from nicegui import ui,app
-from requests import get,post
+from requests import get,post,delete
+def add_tour():
+    data = {
+  "description": "string",
+  "like": False,
+  "favorite": False,
+  "location": "string"
+}
+    result = post('http://127.0.0.1:8090/tour', json=data)
+    ui.navigate.to('/editTour/'+result.json()['_id'])
+    
+def delete_tour(id:str):
+    result = delete(f'http://127.0.0.1:8090/tour/{id}')
 def fetch_tours(description:str,location:str):
     if description == "":
         result = get('http://127.0.0.1:8090/tour/all')
@@ -20,7 +32,7 @@ def show_table_content(description:str = "",location:str = ""):
                 ui.label(f"ID: {u['_id']}").classes('text-xs text-gray-500')
                 ui.label(f"location:{u['location']}")
                 ui.button(f"edit tour",on_click=lambda currentId = id: ui.navigate.to('/editTour/'+currentId))#use current id so that the lambda copies the value and doesent use the last knows id val
-            
+                ui.button(f"delete button",on_click=lambda currentId = id: delete_tour(currentId))
 def tour_list_container(description: str = "", like: bool = False):
     data = fetch_tours(description, like)
     
@@ -28,9 +40,9 @@ def tour_list_container(description: str = "", like: bool = False):
     with ui.card().classes('absolute-center w-3/4 h-[80vh] overflow-y-auto'):
         # 1. Header (Logo and Title)
         with ui.row().classes('items-center mb-4'):
+            ui.button("refresh",on_click=lambda:show_table_content.refresh())
             if app.storage.user.get("is_admin","false"):
-                ui.label(f"welcome {app.storage.user.get("user_id","Guest")} you are an admin")
-                ui.button("add Tour",on_click=lambda:ui.navigate.to('/addTour'))
+                ui.button(f"Add Tour",on_click=add_tour)
             else:
                 ui.label(f"welcome {app.storage.user.get("user_id","Guest")} you are not an  admin")
             ui.label('liked').classes('text-3xl')

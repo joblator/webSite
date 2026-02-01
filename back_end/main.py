@@ -9,7 +9,7 @@ import uvicorn
 from api.user import router as user_router
 from api.tour import router as tour_router
 from api.likeArr import router as like_router
-from api.favoriteArr import router as fav_router
+from api.favoriteArr import router as fav_router    
 
 
 
