@@ -7,7 +7,8 @@ from dal.db import get_db
 class TourFilter(BaseModel):
     description:str
     location:str
-class Tour(Document): 
+class Tour(Document):
+    tourMaker:str
     description:str
     like:bool
     favorite:bool

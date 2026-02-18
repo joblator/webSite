@@ -1,4 +1,3 @@
-from pymongo import MongoClient
 from bunnet import Document
 from datetime import datetime 
 from pydantic import BaseModel
@@ -7,9 +6,6 @@ from dal.db import get_db
 class UserLogin(BaseModel):
     email: str
     password: str
-class UserFilter(BaseModel):
-    name:str
-    is_admin: bool
 class User(Document):
     id:str #the email
     name:str

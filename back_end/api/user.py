@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Response,status,UploadFile
 
-from dal.user import User,UserFilter,UserLogin
+from dal.user import User,UserLogin
 
 router = APIRouter(prefix="/user")
 # filter users

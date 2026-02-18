@@ -1,4 +1,5 @@
-from nicegui import ui
+from nicegui import ui,app
+
 import re
 from requests import post
 from fastapi import status
@@ -7,10 +8,11 @@ from datetime import datetime
 def logIn_click():
     ui.navigate.to('/')
 def signUp_click(username,email,password,admin,dob):
-    ui.notify(f"{username},{email},{password},{admin},{dob}")
     data = {"_id":email,"name": username, "dob":datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"is_admin": admin,"password":password}
     response = post('http://127.0.0.1:8090/user',json=data)
     if response.status_code == status.HTTP_200_OK:
+        app.storage.user.update({"user_id":response.json()['_id']})
+        app.storage.user.update({"is_admin":response.json()['is_admin']})
         ui.navigate.to('/mainPage')
     elif response.status_code == status.HTTP_404_NOT_FOUND:
         ui.notify("something went wrong")

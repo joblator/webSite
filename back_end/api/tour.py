@@ -9,19 +9,9 @@ def api_get_all():
 # filter users
 @router.post("/filter")
 def api_get_filter(filter:TourFilter):
-    return Tour.find(Tour.description == filter.description , Tour.description == filter.description).run()
-"""
-# login
-@router.post("/login")
-def api_login(ul: UserLogin) :
-    the_user:User = User.get(ul.name).run() 
-    if the_user == None:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)
-    elif the_user.password != ul.password:
-        return Response(status_code=status.HTTP_404_NOT_FOUND)        
-    else:
-        return the_user
-"""
+    return Tour.find(
+    (Tour.description == filter.description),(Tour.location == filter.location)
+    ).run()
 # add user
 @router.post("")
 def api_add(tour: Tour):
