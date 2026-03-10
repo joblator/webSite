@@ -13,6 +13,17 @@ class User(Document):
     is_admin:bool
     password:str
 
+    def validate_user(self) -> tuple[bool, str]:
+        if len(self.name) < 4:
+            return False, "Name must be at least 4 characters"
+        if len(self.password) < 4:
+            return False, "Password must be at least 4 characters"
+        
+        if '@' not in self.id:
+            return False, "Email must contain '@'"
+        
+        return True, "" 
+
     # in case there are many images per user, use with get_file_by_file_id
     def get_all_file_ids(self):
         res=[]

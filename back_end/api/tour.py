@@ -1,5 +1,6 @@
 from fastapi import APIRouter,Response,status,UploadFile
 from dal.tour import Tour,TourFilter
+from fastapi.responses import JSONResponse
 
 
 router = APIRouter(prefix="/tour")
@@ -15,8 +16,11 @@ def api_get_filter(filter:TourFilter):
 # add user
 @router.post("")
 def api_add(tour: Tour):
+    valid, error_message = tour.validate_user()
     if Tour.get(tour.id).run() != None:
         return Response(status_code=status.HTTP_400_BAD_REQUEST)
+    elif not valid:
+        return JSONResponse(content={"error": error_message}, status_code=status.HTTP_400_BAD_REQUEST)
     else:
         tour.save()
         return tour
@@ -24,8 +28,11 @@ def api_add(tour: Tour):
 @router.put("")
 def api_udpate(tour: Tour):
     the_tour:Tour = Tour.get(tour.id).run() 
+    valid, error_message = tour.validate_user()
     if the_tour == None:
         return Response(status_code=status.HTTP_404_NOT_FOUND)
+    elif not valid:
+        return JSONResponse(content={"error": error_message}, status_code=status.HTTP_400_BAD_REQUEST)
     else:
         tour.save()
         return tour

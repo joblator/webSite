@@ -14,6 +14,13 @@ class Tour(Document):
     favorite:bool
     location:str
 
+    def validate_tour(self) -> tuple[bool, str]:
+        if any(char.isdigit() for char in self.location):
+            return False, "There cant be a number in location"
+        if len(self.description) < 4:
+            return False, "description must be at least 4 characters"
+        return True, "" 
+
 
     def add_file(self,file_data,content_type):
         # TODO: check if the user exits before adding the file
