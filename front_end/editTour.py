@@ -46,7 +46,7 @@ def update_user(tour_id: str):
     result = get('http://127.0.0.1:8090/tour/'+tour_id)
     with ui.card().classes('absolute-center'):
         with ui.column():
-            des_input = ui.input('description')
+            des_input = ui.input('tour name')
             with ui.row().classes('items-center gap-2'):
                 ui.label('like')
                 like_input = ui.toggle({True:"True", False:"False"},value=False)

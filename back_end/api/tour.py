@@ -10,13 +10,16 @@ def api_get_all():
 # filter users
 @router.post("/filter")
 def api_get_filter(filter:TourFilter):
-    return Tour.find(
-    (Tour.description == filter.description),(Tour.location == filter.location)
-    ).run()
+    return Tour.find({
+        "$or": [
+            {"description": filter.description},
+            {"location": filter.location}
+        ]
+    }).run()
 # add user
 @router.post("")
 def api_add(tour: Tour):
-    valid, error_message = tour.validate_user()
+    valid, error_message = tour.validate_tour()
     if Tour.get(tour.id).run() != None:
         return Response(status_code=status.HTTP_400_BAD_REQUEST)
     elif not valid:
@@ -28,7 +31,7 @@ def api_add(tour: Tour):
 @router.put("")
 def api_udpate(tour: Tour):
     the_tour:Tour = Tour.get(tour.id).run() 
-    valid, error_message = tour.validate_user()
+    valid, error_message = tour.validate_tour()
     if the_tour == None:
         return Response(status_code=status.HTTP_404_NOT_FOUND)
     elif not valid:

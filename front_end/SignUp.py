@@ -14,6 +14,8 @@ def signUp_click(username,email,password,admin,dob):
         app.storage.user.update({"user_id":response.json()['_id']})
         app.storage.user.update({"is_admin":response.json()['is_admin']})
         ui.navigate.to('/mainPage')
+    elif response.status_code == status.HTTP_400_BAD_REQUEST:
+        ui.notify(response.content, color='negative')
     elif response.status_code == status.HTTP_404_NOT_FOUND:
         ui.notify("something went wrong")
 @ui.page('/signUp')

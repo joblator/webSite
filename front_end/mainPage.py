@@ -31,7 +31,6 @@ def show_table_content(description:str = "",location:str = ""):
             with ui.card().classes('w-60 h-80 shadow-md'):
                 ui.image('http://127.0.0.1:8090/tour/file/'+u['_id']).classes('w-full h-32 object-cover')
                 ui.label(u['description']).classes('font-bold text-sm')
-                ui.label(f"ID: {u['_id']}").classes('text-xs text-gray-500')
                 ui.label(f"location:{u['location']}")
                 if app.storage.user.get("is_admin","false") or app.storage.user.get("user_id","guest") == u["tourMaker"]:
                     ui.button(f"edit",on_click=lambda currentId = id: ui.navigate.to('/editTour/'+currentId))#use current id so that the lambda copies the value and doesent use the last knows id val
@@ -46,7 +45,7 @@ def tour_list_container(description: str = "", like: bool = False):
             ui.button("refresh",on_click=lambda:show_table_content.refresh(description="",location=""))
             ui.button(f"Add Tour",on_click=add_tour)
             button_location = ui.input(label="enter location")
-            button_description = ui.input(label="enter description")
+            button_description = ui.input(label="enter tour name")
             ui.button("search",on_click=lambda:show_table_content.refresh(description=button_description.value,location=button_location.value))
         ui.separator()
 

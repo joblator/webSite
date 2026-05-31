@@ -6,7 +6,7 @@ from functools import lru_cache
 @lru_cache()
 def get_db():    
     print("connecting to DB...")
-    client = MongoClient("mongodb+srv://janjoelbonisch_db_user:janjoelbonisch_db_password@cluster0.zbnxxqz.mongodb.net/?appName=Cluster0")
+    client = MongoClient("mongodb+srv://raz:raz@cluster0.mzxtq.mongodb.net/")
     print("connected to DB.")
     return client.tourSite
 
